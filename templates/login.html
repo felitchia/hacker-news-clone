@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+  <form action="" method=post class="signin">
+      <dl>
+        <dt>Username:
+        <dd><input type="username" id="username" name="username" placeholder="Insert username" value="{{ request.form.username }}" required>
+        <dt>Password:
+          <dd><input type="password" id="password" name="password" placeholder="Insert password" rows=5 cols=40 value="{{ request.form.password }}" required>
+
+        <dd><input type=submit value=Signin>
+      </dl>
+  </form>
+{% endblock %}
