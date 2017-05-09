@@ -2,6 +2,8 @@ import unittest
 import os
 from models import Article, User
 from app import db, app
+from flask import g
+from flask_login import login_user, logout_user, current_user, login_required, LoginManager
 
 TEST_DB = 'test.db'
 
@@ -30,7 +32,8 @@ class InitialTestCase(unittest.TestCase):
         db.drop_all()
 
     def test_article_db_insert(self):
-        fake_article = Article(title='Fake Title', text=None, link='fake_link', upvotes=5, downvotes=-4, date=db.func.current_timestamp())
+        #need to figure out how to get current user username
+        fake_article = Article("me", title='Fake Title', text=None, link='fake_link', upvotes=5, downvotes=-4, date=db.func.current_timestamp())
         db.session.add(fake_article)
         db.session.commit()
         article =  db.session.query(Article).filter_by(title='Fake Title').first()
@@ -41,6 +44,7 @@ class InitialTestCase(unittest.TestCase):
         self.assertEquals(-4, article.downvotes)
         self.assertEquals(1, article.votes)
         self.assertIsNotNone(article.date)
+        print(article.user_id)
         #print(article.date)
 
     def test_user_db_insert_link(self):
