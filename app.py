@@ -32,5 +32,16 @@ def index():
     articles = db.session.query(models.Article)
     return render_template('index.html', articles=articles)
 
+@app.route('/submit', methods=['GET', 'POST'])
+def submit_article():
+    if request.method == 'GET':
+        return render_template('submit.html')
+    new_article = models.Article(request.form['title'], request.form['text'], request.form['link'], 0, 0)
+    db.session.add(new_article)
+    db.session.commit()
+    flash('Your article was successfully inserted')
+    return redirect(url_for('index'))
+
+
 if __name__ == '__main__':
     app.run()

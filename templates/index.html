@@ -1,10 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
-  <ul class=articles>
-  {% for article in articles %}
-    <li><h2>{{ article.title }}</h2>{{ article.text|safe }}
-  {% else %}
-    <li><em>Hm, no articles so far! Sing in and insert some!</em>
-  {% endfor %}
-  </ul>
+    <a href="{{ url_for('submit_article') }}">Submit</a>
+    <ul class=articles>
+        {% for article in articles %}
+        <li><h2>{{ article.title }}</h2>{{ article.text|safe }}
+        {% else %}
+        <li><em>Hm, no articles so far! Sing in and insert some!</em>
+    {% endfor %}
+    </ul>
 {% endblock %}

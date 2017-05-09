@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+    <form action="{{ url_for('submit_article') }}" method=post class=submit>
+      <dl>
+        <dt>Title:
+        <dd><input type="title" id="title" name="title" placeholder="Insert Title" value="{{ request.form.title }}" required>
+        <dt>Text:
+          <dd><textarea type="text" id="text" name="text" placeholder="Insert Text" rows=5 cols=40 value="{{ request.form.text }}"></textarea>
+        <dt>Link:
+        <dd><input type="link" id="link" name="link" placeholder="Insert Link" value="{{ request.form.link }}">
+
+        <dd><input type=submit value=Submit>
+      </dl>
+    </form>
+{% endblock %}
