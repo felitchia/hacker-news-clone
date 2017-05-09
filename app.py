@@ -27,5 +27,10 @@ db = SQLAlchemy(app)
 # db.create_all()
 # db.session.commit()
 
+@app.route('/')
+def index():
+    articles = db.session.query(models.Article)
+    return render_template('index.html', articles=articles)
+
 if __name__ == '__main__':
     app.run()
