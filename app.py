@@ -1,5 +1,6 @@
 from flask import Flask, request, session, g, redirect, url_for, \
-     abort, render_template, flash, jsonify
+     abort, render_template, flash
+from flask_login import login_user , logout_user , current_user , login_required, LoginManager
 from flask_sqlalchemy import SQLAlchemy
 import os
 import models
@@ -27,6 +28,10 @@ db = SQLAlchemy(app)
 # db.create_all()
 # db.session.commit()
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
 @app.route('/')
 def index():
     articles = db.session.query(models.Article)
@@ -36,7 +41,7 @@ def index():
 def submit_article():
     if request.method == 'GET':
         return render_template('submit.html')
-    new_article = models.Article(request.form['title'], request.form['text'], request.form['link'], 0, 0)
+    new_article = models.Article(request.form['title'], request.form['text'], request.form['link'], 0, 0, db.func.current_timestamp())
     db.session.add(new_article)
     db.session.commit()
     flash('Your article was successfully inserted')

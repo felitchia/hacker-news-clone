@@ -13,8 +13,9 @@ class Article(db.Model):
     upvotes = db.Column(db.Integer, default=0)
     downvotes = db.Column(db.Integer, default=0)
     votes = db.Column(db.Integer, default=0)
+    date = db.Column(db.DateTime)
 
-    def __init__(self, title, text, link, upvotes, downvotes):
+    def __init__(self, title, text, link, upvotes, downvotes, date):
         #self.user = user
         self.title = title
         if text is not None:
@@ -28,9 +29,41 @@ class Article(db.Model):
         self.upvotes = upvotes
         self.downvotes = downvotes
         self.votes = self.upvotes + self.downvotes
+        self.date = date
 
     def __repr__(self):
         if self.text is not None:
             return "'%s'\n '%s')>" % (self.title, self.text)
         elif self.link is not None:
             return "'%s'\n '%s')>" % (self.title, self.link)
+
+class User(db.Model):
+
+    __tablename__ = "users"
+    username = db.Column('username', db.String, primary_key=True, nullable=False, index=True)
+    email = db.Column('email', db.String, nullable=False, unique=True, index=True)
+    password = db.Column('pwhash', db.String, nullable=False)
+
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
+
+    #Flask-login methods
+    def is_authenticated(self):
+        return True
+
+    #Flask-login methods
+    def is_active(self):
+        return True
+
+    #Flask-login methods
+    def is_anonymous(self):
+        return False
+
+    #Flask-login methods - must return a unicode that uniquely identifies the user
+    def get_id(self):
+        return self.username
+
+    def __repr__(self):
+        return "<User(name='%s')>" % self.username
