@@ -4,8 +4,16 @@ from models import Article, User
 from app import db, app
 from flask import g
 from flask_login import login_user, logout_user, current_user, login_required, LoginManager
+from flask_login import login_user, logout_user, current_user, login_required, LoginManager
 
 TEST_DB = 'test.db'
+
+@login_manager.user_loader
+def load_user(username):
+    try:
+        return User.query.get(username)
+    except:
+        return None
 
 class InitialTestCase(unittest.TestCase):
 

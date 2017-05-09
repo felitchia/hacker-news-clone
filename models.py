@@ -72,3 +72,20 @@ class Article(db.Model):
         elif self.link is not None:
             return "'%s'\n '%s')>" % (self.title, self.link)
 
+
+
+class Comments(db.Model):
+
+    __tablename__ = "coment"
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String)
+    user_id = db.Column(db.String(15), ForeignKey(User.username))
+    article_id = db.Column(db.INteger, ForeignKey(Article.id))
+    date = db.Column(db.DateTime)
+
+    def __init_(self, id, text, user_id, article_id, date):
+        self.id = id
+        self.text = text
+        self.user_id = user_id
+        self.article_id = article_id
+        self.date = date

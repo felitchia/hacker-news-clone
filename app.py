@@ -44,7 +44,7 @@ def index():
 def submit_article():
     if request.method == 'GET':
         return render_template('submit.html')
-    new_article = models.Article(current_user.get_id(), request.form['title'], request.form['text'], request.form['link'], 0, 0, db.func.current_timestamp())
+    new_article = models.Article(current_user.username, request.form['title'], request.form['text'], request.form['link'], 0, 0, db.func.current_timestamp())
     db.session.add(new_article)
     db.session.commit()
     flash('Your article was successfully inserted')
@@ -53,7 +53,6 @@ def submit_article():
 
 @login_manager.user_loader
 def load_user(username):
-    g = models.User.query.get(username)
     try:
         return models.User.query.get(username)
     except:
