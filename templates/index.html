@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
 
 {% block body %}
+
     <div class="row">
-        <div class="col-12-0">
-        <table class="articles table-hover">
+        <div class="col-sm-12">
+        <table class="articles table-hover table-bordered table-striped">
             {% for article in articles %}
             <tbody>
                 <tr class="warning">
@@ -16,4 +17,5 @@
         </table>
         </div>
     </div>
+
 {% endblock %}

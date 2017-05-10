@@ -49,7 +49,7 @@ def article(id):
 def submit_article():
     if request.method == 'GET':
         return render_template('submit.html')
-    new_article = models.Article(current_user.username, request.form['title'], request.form['text'], request.form['link'], 0, 0, db.func.current_timestamp())
+    new_article = models.Article(current_user.username, request.form['title'], request.form['text'], "", 0, 0, db.func.current_timestamp())
     db.session.add(new_article)
     db.session.commit()
     flash('Your article was successfully inserted')
