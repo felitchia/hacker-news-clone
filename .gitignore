@@ -89,6 +89,6 @@ ENV/
 .ropeproject
 
 #databases
-*.db
+
 
 *.idea
