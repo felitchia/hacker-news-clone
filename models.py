@@ -80,7 +80,7 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String)
     user_id = db.Column(db.String(15), ForeignKey(User.username))
-    article_id = db.Column(db.INteger, ForeignKey(Article.id))
+    article_id = db.Column(db.Integer, ForeignKey(Article.id))
     date = db.Column(db.DateTime)
 
     def __init_(self, id, text, user_id, article_id, date):

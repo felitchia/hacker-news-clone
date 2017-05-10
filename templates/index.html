@@ -1,10 +1,19 @@
 {% extends "layout.html" %}
+
 {% block body %}
-    <ul class=articles>
-        {% for article in articles %}
-        <li><h2>{{ article.title }}</h2>{{ article.text|safe }}
-        {% else %}
-        <li><em>Hm, no articles so far! Sing in and insert some!</em>
-    {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col-12-0">
+        <table class="articles table-hover">
+            {% for article in articles %}
+            <tbody>
+                <tr class="warning">
+                    <td><a class="btn btn" href="{{ url_for('article',id=article.id) }}">{{ article.title }}</a></td>
+                    {% else %}
+                    <td>Hm, no articles so far! Sing in and insert one!</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        </div>
+    </div>
 {% endblock %}

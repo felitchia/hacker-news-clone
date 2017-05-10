@@ -1,5 +1,4 @@
-from flask import Flask, request, session, g, redirect, url_for, \
-     abort, render_template, flash
+from flask import Flask, request, redirect, url_for, render_template, flash
 from flask_login import login_user, logout_user, current_user, login_required, LoginManager
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -35,8 +34,14 @@ login_manager.login_view = 'login'
 
 @app.route('/')
 def index():
-    articles = db.session.query(models.Article)
+    articles = db.session.query(models.Article).order_by("votes desc")
     return render_template('index.html', articles=articles)
+
+
+@app.route('/article/<int:id>', methods=['GET'])
+def article(id):
+    article = models.Article.query.filter_by(id=id).first()
+    return render_template('article.html', article=article)
 
 
 @app.route('/submit', methods=['GET', 'POST'])
@@ -91,6 +96,7 @@ def login():
     login_user(user)
     flash('You\'ve been successfully logged in')
     return redirect(request.args.get('next') or url_for('index'))
+
 
 @app.route("/logout")
 @login_required

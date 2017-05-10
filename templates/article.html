@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+    <ul class=article<li>
+        <h2>{{ article.title }}</h2>
+        <div class="row col-12-0">
+            {{ article.text|safe }}
+        </div>
+    </ul>
+{% endblock %}
